@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'realest_estate',
         'USER': 'postgres',
-        'PASSWORD': '[YOUR POSTGRES DATABASE PASSWORD]',
+        'PASSWORD': 'hellobunny',
         'HOST': 'localhost'
     }
 }
@@ -92,8 +92,8 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = '[YOUR EMAIL]'
-EMAIL_HOST_PASSWORD = '[YOUR APP PASSWORD]'
+EMAIL_HOST_USER = 'sparsh@gmail.com'
+EMAIL_HOST_PASSWORD = 'hellobunny'
 EMAIL_USE_TLS = True
 
 # Password validation
@@ -154,7 +154,7 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-FILE_UPLOAD_PERMISSIONS=0o640
+FILE_UPLOAD_PERMISSIONS = 0o640
 
 AUTH_USER_MODEL = 'accounts.UserAccount'
 

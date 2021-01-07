@@ -28,7 +28,7 @@ export const login = (email, password) => async dispatch => {
         dispatch(setAlert('Authenticated successfully', 'success'));
     } catch (err) {
         dispatch({
-            type: LOGIN_FAIL
+            type: LOGIN_FAIL    
         });
 
         dispatch(setAlert('Error Authenticating', 'error'));
@@ -58,7 +58,7 @@ export const signup = ({ name, email, password, password2 }) => async dispatch =
             type: SIGNUP_FAIL
         });
 
-        dispatch(setAlert('Error Authenticating', 'error'));
+        dispatch(setAlert('Error Authenticating via sign', 'error'));
     }
 };
 

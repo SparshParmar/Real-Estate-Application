@@ -115,29 +115,20 @@ const About = () => {
                 />
             </Helmet>
             <header className='about__header'>
-                <h1 className='about__heading'>About Realest Estate</h1>
+                <h1 className='about__heading'>About Us</h1>
             </header>
             <section className='about__info'>
                 <div className='row'>
                     <div className='col-3-of-4'>
                         <h2 className='about__subheading'>We find the perfect home for you</h2>
                         <p className='about__paragraph'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien a diam eleifend faucibus. 
-                            Suspendisse vitae sodales leo. Proin hendrerit aliquam interdum. Maecenas tellus ante, ultrices id 
-                            justo id, venenatis hendrerit orci. Orci varius natoque penatibus et magnis dis parturient montes, 
-                            nascetur ridiculus mus. Praesent aliquam condimentum ligula eget ullamcorper.
+                            We are a group of 7 developers, working at our best to get a perfect amtching house for you
                         </p>    
                         <div className='about__display'>
                             <img className='about__display__image' src={House} alt='' />
                         </div>
                         <p className='about__paragraph'>
-                            Suspendisse gravida magna posuere purus laoreet, et elementum velit placerat. Fusce at convallis erat. 
-                            Curabitur placerat eros eu interdum lacinia. Nulla facilisi. Duis pretium tristique porta. Donec 
-                            vehicula est a massa interdum vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Mauris malesuada lacus mauris, eu ultrices neque egestas eu. Class aptent taciti sociosqu ad litora 
-                            torquent per conubia nostra, per inceptos himenaeos. Morbi elementum enim vitae purus pulvinar tincidunt. 
-                            Aenean id viverra leo, non vehicula odio. Vestibulum volutpat a nulla at mattis. Nam cursus semper sapien, 
-                            eu consequat lacus iaculis vel.
+                            So, relax, set your preferences and let our software does the work for you
                         </p>
                     </div>
                     <div className='col-1-of-4'>
@@ -147,7 +138,7 @@ const About = () => {
             </section>
             <section className='about__team'>
                 <div className='row'>
-                    <h2 className='about__subheading'>Meet out awesome team!</h2>
+                    <h2 className='about__subheading'>Cheers!</h2>
                 </div>
                 {getAllRealtors()}
             </section>

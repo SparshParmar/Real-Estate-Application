@@ -22,7 +22,7 @@ const navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
             <nav className='navbar'>
                 <div className='navbar__top'>
                     <div className='navbar__top__logo'>
-                        <Link className='navbar__top__logo__link' to='/'>Realest Estate</Link>
+                        <Link className='navbar__top__logo__link' to='/'>Real Estate</Link>
                     </div>
                     <div className='navbar__top__auth'>
                         { !loading && (<Fragment>{ isAuthenticated ? authLinks : guestLinks }</Fragment>) }
