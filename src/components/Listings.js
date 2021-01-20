@@ -18,12 +18,12 @@ const listings = ({ listings }) => {
                     home_type={listing.home_type}
                     bedrooms={listing.bedrooms}
                     bathrooms={listing.bathrooms}
-                    sqft={listing.sqft}
+                    sqft={listing.sqmt}
                     photo_main={listing.photo_main}
                     slug={listing.slug}
                 />
             );
-        });
+        })
 
         for (let i = 0; i < listings.length; i += 3) {
             result.push(

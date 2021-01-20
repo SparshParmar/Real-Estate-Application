@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'realest_estate.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'realest_estate',
-        'USER': 'postgres',
-        'PASSWORD': 'hellobunny',
+        'NAME': 'se_project',
+        'USER': 'real',
+        'PASSWORD': 'estate',
         'HOST': 'localhost'
     }
 }
