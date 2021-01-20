@@ -1,12 +1,21 @@
 from rest_framework import serializers
 from .models import Listing
+from properties.serializers import PropertySerializer
+from agencies.serializers import AgencySerializer
+
 
 class ListingSerializer(serializers.ModelSerializer):
+    property = PropertySerializer(read_only=True)
+
     class Meta:
         model = Listing
-        fields = ('title', 'address', 'city', 'state', 'price', 'sale_type', 'home_type', 'bedrooms', 'bathrooms', 'sqft', 'photo_main', 'slug')
+        fields = ('title', 'price', 'sale_type', 'property', 'slug')
+
 
 class listingDetailSerializer(serializers.ModelSerializer):
+    property = PropertySerializer(read_only=True)
+    agency = AgencySerializer(read_only=True)
+
     class Meta:
         model = Listing
         fields = '__all__'
