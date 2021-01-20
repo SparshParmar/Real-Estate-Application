@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const ListingDetail = (props) => {
     const [listing, setListing] = useState({});
-    const [realtor, setRealtor] = useState({});
+    const [agency, setAgency] = useState({});
     const [price, setPrice] = useState(0);
 
     const numberWithCommas = (x) => {
@@ -32,7 +32,7 @@ const ListingDetail = (props) => {
     }, [props.match.params.id]);
 
     useEffect(() => {
-        const id = listing.realtor;
+        const id = listing.agency;
 
         const config = {
             headers: {
@@ -41,15 +41,15 @@ const ListingDetail = (props) => {
         };
 
         if (id) {
-            axios.get(`${process.env.REACT_APP_API_URL}/api/realtors/${id}`, config)
+            axios.get(`${process.env.REACT_APP_API_URL}/api/agencies/${id}`, config)
             .then(res => {
-                setRealtor(res.data);
+                setAgency(res.data);
             })
             .catch(err => {
 
             });
         }
-    }, [listing.realtor]);
+    }, [listing.agency]);
 
     const displayInteriorImages = () => {
         let images = [];
@@ -299,12 +299,12 @@ const ListingDetail = (props) => {
                 </div>
                 <div className='col-1-of-4'>
                     <div className='listingdetail__display'>
-                        <img className='listingdetail__display__image' src={realtor.photo} alt='' />
+                        <img className='listingdetail__display__image' src={agency.photo} alt='' />
                     </div>
-                    <h3 className='listingdetail__realtor'>{realtor.name}</h3>
-                    <p className='listingdetail__contact'>{realtor.phone}</p>
-                    <p className='listingdetail__contact'>{realtor.email}</p>
-                    <p className='listingdetail__about'>{realtor.description}</p>
+                    <h3 className='listingdetail__agency'>{agency.name}</h3>
+                    <p className='listingdetail__contact'>{agency.phone}</p>
+                    <p className='listingdetail__contact'>{agency.email}</p>
+                    <p className='listingdetail__about'>{agency.description}</p>
                 </div>
             </div>
             <div className='row'>
