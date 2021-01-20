@@ -6,19 +6,22 @@ from .models import Listing
 from .serializers import ListingSerializer, listingDetailSerializer
 from datetime import datetime, timezone, timedelta
 
+
 class ListingsView(ListAPIView):
     queryset = Listing.objects.order_by('-list_date').filter(is_published=True)
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.AllowAny,)
     serializer_class = ListingSerializer
     lookup_field = 'slug'
+
 
 class ListingView(RetrieveAPIView):
     queryset = Listing.objects.order_by('-list_date').filter(is_published=True)
     serializer_class = listingDetailSerializer
     lookup_field = 'slug'
 
+
 class SearchView(APIView):
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.AllowAny,)
     serializer_class = ListingSerializer
 
     def post(self, request, format=None):
@@ -47,10 +50,10 @@ class SearchView(APIView):
             price = 1500000
         elif price == 'Any':
             price = -1
-        
+
         if price != -1:
             queryset = queryset.filter(price__gte=price)
-        
+
         bedrooms = data['bedrooms']
         if bedrooms == '0+':
             bedrooms = 0
@@ -64,7 +67,7 @@ class SearchView(APIView):
             bedrooms = 4
         elif bedrooms == '5+':
             bedrooms = 5
-        
+
         queryset = queryset.filter(bedrooms__gte=bedrooms)
 
         home_type = data['home_type']
@@ -81,7 +84,7 @@ class SearchView(APIView):
             bathrooms = 3.0
         elif bathrooms == '4+':
             bathrooms = 4.0
-        
+
         queryset = queryset.filter(bathrooms__gte=bathrooms)
 
         sqft = data['sqft']
@@ -95,10 +98,10 @@ class SearchView(APIView):
             sqft = 2000
         elif sqft == 'Any':
             sqft = 0
-        
+
         if sqft != 0:
             queryset = queryset.filter(sqft__gte=sqft)
-        
+
         days_passed = data['days_listed']
         if days_passed == '1 or less':
             days_passed = 1
@@ -112,15 +115,15 @@ class SearchView(APIView):
             days_passed = 20
         elif days_passed == 'Any':
             days_passed = 0
-        
+
         for query in queryset:
             num_days = (datetime.now(timezone.utc) - query.list_date).days
 
             if days_passed != 0:
                 if num_days > days_passed:
-                    slug=query.slug
+                    slug = query.slug
                     queryset = queryset.exclude(slug__iexact=slug)
-        
+
         has_photos = data['has_photos']
         if has_photos == '1+':
             has_photos = 1
@@ -132,7 +135,7 @@ class SearchView(APIView):
             has_photos = 10
         elif has_photos == '15+':
             has_photos = 15
-        
+
         for query in queryset:
             count = 0
             if query.photo_1:
@@ -175,11 +178,11 @@ class SearchView(APIView):
                 count += 1
             if query.photo_20:
                 count += 1
-            
+
             if count < has_photos:
                 slug = query.slug
                 queryset = queryset.exclude(slug__iexact=slug)
-        
+
         open_house = data['open_house']
         queryset = queryset.filter(open_house__iexact=open_house)
 

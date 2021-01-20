@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'accounts',
-    'realtors',
+    'agencies',
     'listings',
     'contacts',
+    'properties',
 ]
 
 MIDDLEWARE = [
