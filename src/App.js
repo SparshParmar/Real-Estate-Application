@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './containers/Home';
 import About from './containers/About';
+import Filter from './containers/Filter';
+
 import Contact from './containers/Contact';
 import Listings from './containers/Listings';
 import ListingDetail from './containers/ListingDetail';
@@ -25,6 +27,8 @@ const App = () => (
                     <Route exact path='/about' component={About} />
                     <Route exact path='/contact' component={Contact} />
                     <Route exact path='/listings' component={Listings} />
+                    <Route exact path='/filter' component={Filter} />
+
                     <PrivateRoute exact path='/listings/:id' component={ListingDetail} />
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/signup' component={SignUp} />

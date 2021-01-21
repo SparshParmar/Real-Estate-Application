@@ -1,14 +1,36 @@
 .home {
-    &__form {
-        margin-top: 4rem;
-        margin-bottom: 6rem;
-    }
+  .grid_container {
+    display: grid;
 
-    &__listings {
-        margin-bottom: 4rem;
-    }
+    grid-template-areas: 'left right';
+    padding: 10px;
+    column-gap: 5px;
+  }
 
-    &__pagination {
-        margin-bottom: 6rem;
-    }
+  .grid_container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+  }
+
+  &__form {
+    margin-top: 4rem;
+    margin-bottom: 6rem;
+  }
+
+  &__listings {
+    margin-bottom: 4rem;
+  }
+
+  &__pagination {
+    margin-bottom: 6rem;
+  }
+
+  .section_one {
+    grid-area: left;
+  }
+  .section_two {
+    grid-area: right;
+  }
 }

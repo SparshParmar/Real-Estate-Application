@@ -6,14 +6,15 @@ const card = (props) => {
     const numberWithCommas = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     };
-
+    console.log("here are the props")
+    console.log(props.listing_slug)
     return (
         <div className='card'>
             <h3 className='card__title'>{props.title}</h3>
             <div className='card__header'>
                 <img className='card__header__photo' src={props.photo_main} alt='House' />
             </div>
-            <p className='card__location'>{props.address}, {props.city}, {props.state}</p>
+            <p className='card__location'>{props.address},{props.city}</p>
             <div className='row'>
                 <div className='col-2-of-3'>
                     <p className='card__info'>Price: ${numberWithCommas(props.price)}</p>
@@ -26,7 +27,7 @@ const card = (props) => {
                     <p className='card__sqmt'>Sqmt: {props.sqft}</p>
                 </div>
             </div>
-            <Link className='card__link' to={`/listings/${props.slug}`}>View Listing</Link>
+            <Link className='card__link' to={`/listings/${props.listing_slug}`}>View Listing</Link>
         </div>
     );
 };

@@ -4,6 +4,7 @@ import axios from 'axios';
 import Card from '../components/Card';
 import Pagination from '../components/Pagination';
 
+
 const Listings = () => {
     const [listings, setListings] = useState([]);
     const [count, setCount] = useState(0);
@@ -13,11 +14,12 @@ const Listings = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        console.log(`http://localhost:8000/api/listings/?page=1`)
 
         const fetchData = async () => {
             try {
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/listings/?page=1`);
-
+                const res = await axios.get(`http://localhost:8000/api/listings/?page=1`);
+                console.log('the res' + res)
                 setListings(res.data.results);
                 setCount(res.data.count);
                 setPrevious(res.data.previous);
@@ -37,20 +39,23 @@ const Listings = () => {
 
         listings.map(listing => {
             return display.push(
+              
                 <Card
                     title={listing.title}
-                    address={listing.address}
-                    city={listing.city}
-                    state={listing.state}
+                    address={listing["property"].address}
+                    city={listing["property"].city}
+                    state="N/A"
                     price={listing.price}
                     sale_type={listing.sale_type}
-                    home_type={listing.home_type}
-                    bedrooms={listing.bedrooms}
-                    bathrooms={listing.bathrooms}
-                    sqft={listing.sqft}
-                    photo_main={listing.photo_main}
-                    slug={listing.slug}
+                    home_type={listing["property"].home_type}
+                    bedrooms={listing["property"].bedrooms}
+                    bathrooms={listing["property"].bathrooms}
+                    sqft={listing["property"].sqmt}
+                    photo_main={listing["property"].photo_main}
+                    slug={listing["property"].slug}
+                    listing_slug={listing.slug}
                 />
+            
             );
         });
 
@@ -74,7 +79,8 @@ const Listings = () => {
     };
 
     const visitPage = (page) => {
-        axios.get(`${process.env.REACT_APP_API_URL}/api/listings/?page=${page}`)
+        axios.get(`http://localhost:8000/api/listings/?page=${page}`)
+        console.log(`http://localhost:8000/api/listings/?page=${page}`)
         .then(res => {
             setListings(res.data.results);
             setPrevious(res.data.previous);
@@ -82,7 +88,7 @@ const Listings = () => {
             setActive(page);
         })
         .catch(err => {
-
+            console.log("error caught on visit Page")
         });
     };
 

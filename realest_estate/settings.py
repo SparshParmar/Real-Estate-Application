@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'realest_estate.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'se_project',
-        'USER': 'real',
-        'PASSWORD': 'estate',
+        'NAME': 'myproject',
+        'USER': 'myprojectuser',
+        'PASSWORD': 'password',
         'HOST': 'localhost'
     }
 }
@@ -93,8 +93,8 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'sparsh@gmail.com'
-EMAIL_HOST_PASSWORD = 'hellobunny'
+EMAIL_HOST_USER = 'sparshparmar444@gmail.com'
+EMAIL_HOST_PASSWORD = 'hello'
 EMAIL_USE_TLS = True
 
 # Password validation

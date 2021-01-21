@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import listings from '../components/Listings';
 
 const ListingDetail = (props) => {
     const [listing, setListing] = useState({});
     const [agency, setAgency] = useState({});
     const [price, setPrice] = useState(0);
+    const [sale, setSale] = useState('For Rent');
 
     const numberWithCommas = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -20,10 +22,11 @@ const ListingDetail = (props) => {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         };
-
-        axios.get(`${process.env.REACT_APP_API_URL}/api/listings/${slug}`, config)
+        console.log(`http://localhost:8000/api/listings/${slug}`)
+        axios.get(`http://localhost:8000/api/listings/${slug}`, config)
         .then(res => {
-            setListing(res.data);
+            console.log(res.data)
+            setListing(res.data["property"]);
             setPrice(numberWithCommas(res.data.price));
         })
         .catch(err => {
@@ -41,9 +44,10 @@ const ListingDetail = (props) => {
         };
 
         if (id) {
-            axios.get(`${process.env.REACT_APP_API_URL}/api/agencies/${id}`, config)
+            axios.get(`http://localhost:8000/api/agencies/${id}`, config)
             .then(res => {
                 setAgency(res.data);
+                setSale(res.data.sale_type);
             })
             .catch(err => {
 
@@ -51,6 +55,7 @@ const ListingDetail = (props) => {
         }
     }, [listing.agency]);
 
+    
     const displayInteriorImages = () => {
         let images = [];
 
@@ -284,7 +289,7 @@ const ListingDetail = (props) => {
             </Helmet>
             <div className='listingdetail__header'>
                 <h1 className='listingdetail__title'>{listing.title}</h1>
-                <p className='listingdetail__location'>{listing.city}, {listing.state}, {listing.zipcode}</p>
+                <p className='listingdetail__location'>{listing.zipcode}, {listing.city}</p>
             </div>
             <div className='row'>
                 <div className='listingdetail__breadcrumb'>
@@ -314,15 +319,14 @@ const ListingDetail = (props) => {
                         <li className='listingdetail__list__item'>Price: ${price}</li>
                         <li className='listingdetail__list__item'>Bedrooms: {listing.bedrooms}</li>
                         <li className='listingdetail__list__item'>Bathrooms: {listing.bathrooms}</li>
-                        <li className='listingdetail__list__item'>Square Feet: {listing.sqft}</li>
+                        <li className='listingdetail__list__item'>Square Feet: {listing.sqmt}</li>
                     </ul>
                 </div>
                 <div className='col-1-of-2'>
                     <ul className='listingdetail__list'>
-                        <li className='listingdetail__list__item'>Sale Type: {listing.sale_type}</li>
+                        <li className='listingdetail__list__item'>Sale Type: {sale}</li>
                         <li className='listingdetail__list__item'>Address: {listing.address}</li>
                         <li className='listingdetail__list__item'>City: {listing.city}</li>
-                        <li className='listingdetail__list__item'>State: {listing.state}</li>
                         <li className='listingdetail__list__item'>Zipcode: {listing.zipcode}</li>
                     </ul>
                 </div>

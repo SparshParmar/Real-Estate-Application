@@ -18,6 +18,7 @@ class ListingView(RetrieveAPIView):
     queryset = Listing.objects.order_by('-list_date').filter(is_published=True)
     serializer_class = listingDetailSerializer
     lookup_field = 'slug'
+    permission_classes = (permissions.AllowAny, )
 
 
 class SearchView(APIView):

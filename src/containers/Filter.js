@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Fragment } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-
 import { Helmet } from 'react-helmet';
+import ListingForm from '../components/ListingForm';
+import Listings from '../components/Listings';
+import Pagination from '../components/Pagination';
 
-
-
-const Home = (isauth='false') => {
+const Filter = () => {
     const [listings, setListings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [listingsPerPage, setListingsPerPage] = useState(3);
@@ -44,35 +42,31 @@ const Home = (isauth='false') => {
                     content='Realest Estate Home Page'
                 />
             </Helmet>
-        
-        <div className='grid_container'>
-        <div className="section_one">
-          "hey here are the listings..."
-        </div>
-
-        <div className="section_two">
-          <h2>User Profile</h2>          
-        {
-            (!isauth)? (
-                <div>yes, authenticated</div>
-            )
-            :
-            (
-                <div>
-            <Fragment>
-            <Link className='navbar__top__auth__link' to='/login'>Login</Link>
-            Or
-            <Link className='navbar__top__auth__link' to='/signup'>Sign Up</Link>
-             </Fragment>
-             </div>
-            )
-        }
-          
-        </div>
-        </div>
-      
+            <section className='home__form'>
+                <ListingForm setListings={setListings} />
+            </section>
+            <section className='home__listings'>
+                <Listings listings={currentListings} />
+            </section>
+            <section className='home__pagination'>
+                <div className='row'>
+                    {
+                        listings.length !== 0 ? (
+                            <Pagination
+                                itemsPerPage={listingsPerPage}
+                                count={listings.length}
+                                visitPage={visitPage}
+                                previous={previous_number}
+                                next={next_number}
+                                active={active}
+                                setActive={setActive}
+                            />
+                        ) : null
+                    }
+                </div>
+            </section>
         </main>
     );
 };
 
-export default Home;
+export default Filter;
