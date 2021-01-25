@@ -15,5 +15,6 @@ class PropertiesView(ListAPIView):
 class PropertyView(RetrieveAPIView):
     queryset = Property.objects.order_by('+title')
     serializer_class = PropertyDetailSerializer
+    permission_classes = (permissions.IsAuthenticated,)
     lookup_field = 'slug'
 

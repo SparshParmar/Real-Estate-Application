@@ -5,21 +5,20 @@ const listings = ({ listings }) => {
     const getListings = () => {
         let listingsOnPage = [];
         let result = [];
-
+        console.log(listings)
         listings.map(listing => {
             return listingsOnPage.push(
                 <Card
                     title={listing.title}
-                    address={listing.address}
-                    city={listing.city}
-                    state={listing.state}
+                    address={listing["property"].address}
+                    city={listing["property"].city}
                     price={listing.price}
                     sale_type={listing.sale_type}
-                    home_type={listing.home_type}
-                    bedrooms={listing.bedrooms}
-                    bathrooms={listing.bathrooms}
-                    sqft={listing.sqmt}
-                    photo_main={listing.photo_main}
+                    home_type={listing["property"].home_type}
+                    bedrooms={listing["property"].bedrooms}
+                    bathrooms={listing["property"].bathrooms}
+                    sqft={listing["property"].sqmt}
+                    photo_main={listing["property"].photo_main}
                     slug={listing.slug}
                 />
             );

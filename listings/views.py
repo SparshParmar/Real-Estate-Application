@@ -16,6 +16,7 @@ class ListingsView(ListAPIView):
 
 class ListingView(RetrieveAPIView):
     queryset = Listing.objects.order_by('-list_date').filter(is_published=True)
+    permission_classes = (permissions.IsAuthenticated,)
     serializer_class = listingDetailSerializer
     lookup_field = 'slug'
 
@@ -68,10 +69,10 @@ class SearchView(APIView):
         elif bedrooms == '5+':
             bedrooms = 5
 
-        queryset = queryset.filter(bedrooms__gte=bedrooms)
+        queryset = queryset.filter(property__bedrooms__gte=bedrooms)
 
         home_type = data['home_type']
-        queryset = queryset.filter(home_type__iexact=home_type)
+        queryset = queryset.filter(property__home_type__iexact=home_type)
 
         bathrooms = data['bathrooms']
         if bathrooms == '0+':
@@ -85,22 +86,22 @@ class SearchView(APIView):
         elif bathrooms == '4+':
             bathrooms = 4.0
 
-        queryset = queryset.filter(bathrooms__gte=bathrooms)
+        queryset = queryset.filter(property__bathrooms__gte=bathrooms)
 
-        sqft = data['sqft']
-        if sqft == '1000+':
-            sqft = 1000
-        elif sqft == '1200+':
-            sqft = 1200
-        elif sqft == '1500+':
-            sqft = 1500
-        elif sqft == '2000+':
-            sqft = 2000
-        elif sqft == 'Any':
-            sqft = 0
+        sqmt = data['sqmt']
+        if sqmt == '1000+':
+            sqmt = 1000
+        elif sqmt == '1200+':
+            sqmt = 1200
+        elif sqmt == '1500+':
+            sqmt = 1500
+        elif sqmt == '2000+':
+            sqmt = 2000
+        elif sqmt == 'Any':
+            sqmt = 0
 
-        if sqft != 0:
-            queryset = queryset.filter(sqft__gte=sqft)
+        if sqmt != 0:
+            queryset = queryset.filter(property__sqmt__gte=sqmt)
 
         days_passed = data['days_listed']
         if days_passed == '1 or less':
