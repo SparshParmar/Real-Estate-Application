@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Fragment } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import userImage from '../assets/images/download.png';
 import { Helmet } from 'react-helmet';
 
 
 
-const Home = (isauth='false') => {
+const Home = ({isAuthenticated}) => {
     const [listings, setListings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [listingsPerPage, setListingsPerPage] = useState(3);
@@ -53,18 +54,18 @@ const Home = (isauth='false') => {
         <div className="section_two">
           <h2>User Profile</h2>          
         {
-            (!isauth)? (
-                <div>yes, authenticated</div>
+            (isAuthenticated)? (
+                <div>
+                <div>Authenticated</div>
+                <img src={userImage} class="navbar__user_image" alt="User"/>
+                </div>
             )
             :
             (
-                <div>
-            <Fragment>
+            <div>
             <Link className='navbar__top__auth__link' to='/login'>Login</Link>
-            Or
             <Link className='navbar__top__auth__link' to='/signup'>Sign Up</Link>
-             </Fragment>
-             </div>
+            </div>
             )
         }
           
@@ -75,4 +76,10 @@ const Home = (isauth='false') => {
     );
 };
 
-export default Home;
+
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+
+export default connect(mapStateToProps)(Home);
