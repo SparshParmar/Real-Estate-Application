@@ -3,9 +3,10 @@ import { Helmet } from 'react-helmet';
 import CreateListing from '../components/CreateListing';
 import ListingForm from '../components/ListingForm';
 import Listings from '../components/Listings';
+import { connect } from 'react-redux';
 import Pagination from '../components/Pagination';
-
-const Create = () => {
+import Login from '../containers/Login'
+const Create = ({isAuthenticated, username , token}) => {
     const [listings, setListings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [listingsPerPage, setListingsPerPage] = useState(3);
@@ -34,44 +35,63 @@ const Create = () => {
         }
     };
 
-    return (
-        <main className='home'>
-            <Helmet>
-                <title>Realest Estate - Create</title>
-                <meta
-                    name='description'
-                    content='Realest Estate Create Page'
-                />
-            </Helmet>
-            <section className='home__form'>
 
-                <CreateListing setListings={setListings} username="Sparsh" />
-            </section>
-            <section className='home__listings'>
-                <Listings listings={currentListings} />
-            </section>
-            <section className='home__pagination'>
-                <div className='row'>
-                    {
-                        listings.length !== 0 ? (
-                            <Pagination
-                                itemsPerPage={listingsPerPage}
-                                count={listings.length}
-                                visitPage={visitPage}
-                                previous={previous_number}
-                                next={next_number}
-                                active={active}
-                                setActive={setActive}
-                            />
-                        ) : null
-                    }
-                </div>
-            </section>
-        </main>
-    );
+    if(isAuthenticated){
+        return(
+            <main className='home'>
+                <Helmet>
+                    <title>Realest Estate - Create</title>
+                    <meta
+                        name='description'
+                        content='Realest Estate Create Page'
+                    />
+                </Helmet>
+                <section className='home__form'>
+                    <CreateListing setListings={setListings} username={username} token={token} />
+                </section>
+                <section className='home__listings'>
+                    <Listings listings={currentListings} />
+                </section>
+                <section className='home__pagination'>
+                    <div className='row'>
+                        {
+                            listings.length !== 0 ? (
+                                <Pagination
+                                    itemsPerPage={listingsPerPage}
+                                    count={listings.length}
+                                    visitPage={visitPage}
+                                    previous={previous_number}
+                                    next={next_number}
+                                    active={active}
+                                    setActive={setActive}
+                                />
+                            ) : null
+                        }
+                    </div>
+                </section>
+            </main>
+        );
+    }
+    else{
+        return(
+            <Login/>
+        )
+    }
+
+    
 };
 
-export default Create;
+
+
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    username: state.auth.username,
+    token: state.auth.token
+});
+
+
+export default connect(mapStateToProps)(Create);
+
 
 // agency: props.username,
 //         property : {

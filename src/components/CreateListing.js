@@ -14,7 +14,9 @@ const CreateListing = (props) => {
     photo_main: image_main,
     slug: 'listing slug',
     title: 'the lsiting title',
-    description: 'the description'
+    description: 'the description',
+    bathrooms: 1,
+    bedrooms:1
   });
 
   const [propertyData, setPropertyData] = useState({
@@ -24,9 +26,9 @@ const CreateListing = (props) => {
         _photo_1: image_main,
         _address: 'address',
         _city: 'city',
-        _zipcode: '123456   ',
-        _bedrooms: '2',
-        _bathroooms: '1',
+        _zipcode: 123456,
+        _bedrooms: 2,
+        _bathrooms:1,
         _home_type: 'House',
         _sqmt: 23,
         _slug: 'property_slug',
@@ -34,6 +36,7 @@ const CreateListing = (props) => {
   })
 
   const {
+    agency,
     sale_type,
     title,
     price,   
@@ -57,15 +60,15 @@ const CreateListing = (props) => {
         _photo_1,
         _slug,
         _sqmt,
-        _zipcode    
-               } = listingData
+        _zipcode  ,
+              } = propertyData
 
   const [loading, setLoading] = useState(false);
 
   const onChange = (e) =>
     setListingData({ ...listingData, [e.target.name]: e.target.value });
 
-    const _onChange = (e) =>
+    const _onchange = (e) =>
     setListingData({ ...propertyData, [e.target.name] : e.target.value });
 
   const onSubmit = (e) => {
@@ -83,30 +86,64 @@ const CreateListing = (props) => {
 
     // setLoading(true);
 
-    // axios
-    //   .post(
-    //     `http://localhost:8000/api/create_listing`,
-    //     {
-    //       agency,
-    //       property,
-    //       sale_type,
-    //       price,
-    //       open_house,
-    //       is_published,
-    //       list_date,
-    //     },
-    //     config
-    //   )
-    //   .then((res) => {
-    //     setLoading(false);
-    //     props.setListings(res.data);
-    //     window.scrollTo(0, 0);
-    //   })
-    //   .catch((err) => {
-    //     setLoading(false);
-    //     console.log('errorcaught');
-    //     window.scrollTo(0, 0);
-    //   });
+    axios
+      .post(
+        `http://localhost:8000/api/create_property`,
+        {_owner,
+          _title,
+        _address,
+        _bathrooms,
+        _bedrooms,
+        _city,
+        _owner,
+        _home_type,
+        _photo_1,
+        _slug,
+        _sqmt,
+        _zipcode 
+        },
+        config
+      )
+      .then((res) => {
+        setLoading(false);
+        props.setListings(res.data);
+        window.scrollTo(0, 0);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log('errorcaught');
+        window.scrollTo(0, 0);
+      });
+
+      axios
+      .post(
+        `http://localhost:8000/api/create_listing`,
+        {
+          agency,
+          sale_type,
+    title,
+    price,   
+    open_house,
+    bedrooms,
+    bathrooms,
+    slug,
+    is_published,
+    list_date,
+    photo_main,
+    description,
+        },
+        config
+      )
+      .then((res) => {
+        setLoading(false);
+        props.setListings(res.data);
+        window.scrollTo(0, 0);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log('errorcaught');
+        window.scrollTo(0, 0);
+      });
 
     // console.log(photo_main, slug, title, description, sale_type, price, bedrooms, bathrooms, open_house, is_published, list_date);
 
@@ -121,6 +158,30 @@ const CreateListing = (props) => {
         //     _slug,
         //     _sqmt,
         //     _zipcode);
+
+        console.log(_title,
+          _address,
+          _bathrooms,
+          _bedrooms,
+          _city,
+          _owner,
+          _home_type,
+          _photo_1,
+          _slug,
+          _sqmt,
+          _zipcode );
+
+          console.log(sale_type,
+            title,
+            price,   
+            open_house,
+            bedrooms,
+            bathrooms,
+            slug,
+            is_published,
+            list_date,
+            photo_main,
+            description,);
   };
 
   const handleFile = (e) =>
@@ -261,7 +322,7 @@ const CreateListing = (props) => {
               className="listingform__select"
               name="bathrooms"
               onChange={(e) => onChange(e)}
-              value={_bathrooms}
+              value={bathrooms}
             >
               <option>0</option>
               <option>1</option>
@@ -309,7 +370,7 @@ const CreateListing = (props) => {
             <textarea
               className="listingform__select"
               name="_title"
-              onChange={(e) => _onChange(e)}
+              onChange={(e) => _onchange(e)}
             ></textarea>
           </div>
 
@@ -326,7 +387,7 @@ const CreateListing = (props) => {
             <textarea
               className="listingform__select"
               name="_address"
-              onChange={(e) => _onChange(e)}
+              onChange={(e) => _onchange(e)}
             ></textarea>
           </div>
           <div className="listingform__section">
@@ -337,7 +398,7 @@ const CreateListing = (props) => {
               type="number"
               className="listingform__select"
               name="_sqmt"
-              onChange={(e) => _onChange(e)}
+              onChange={(e) => _onchange(e)}
             ></input>
           </div>
 
@@ -362,7 +423,7 @@ const CreateListing = (props) => {
               type="number"
               className="listingform__select"
               name="_zipcode"
-              onChange={(e) => _onChange(e)}
+              onChange={(e) => _onchange(e)}
             ></input>
           </div>
 
@@ -374,7 +435,7 @@ const CreateListing = (props) => {
               type="number"
               className="listingform__select"
               name="_bedrooms"
-              onChange={(e) => _onChange(e)}
+              onChange={(e) => _onchange(e)}
             ></input>
           </div>
         </div>
@@ -388,7 +449,7 @@ const CreateListing = (props) => {
               type="number"
               className="listingform__select"
               name="_bathrooms"
-              onChange={(e) => _onChange(e)}
+              onChange={(e) => _onchange(e)}
             ></input>
           </div>
 
@@ -399,7 +460,7 @@ const CreateListing = (props) => {
             <textarea
               className="listingform__select"
               name="_city"
-              onChange={(e) => _onChange(e)}
+              onChange={(e) => _onchange(e)}
             ></textarea>
           </div>
         </div>
@@ -413,7 +474,7 @@ const CreateListing = (props) => {
               <select
                 className="listingform__select"
                 name="_home_type"
-                onChange={(e) => _onChange(e)}
+                onChange={(e) => _onchange(e)}
                 value={_home_type}
               >
                 <option>House</option>
@@ -436,7 +497,7 @@ const CreateListing = (props) => {
                 type="text"
                 className="listingform__select"
                 name="_slug"
-                onChange={(e) => _onChange(e)}
+                onChange={(e) => _onchange(e)}
               ></input>
             </div>
 

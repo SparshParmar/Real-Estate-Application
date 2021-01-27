@@ -80,7 +80,6 @@ const Listings = () => {
 
     const visitPage = (page) => {
         axios.get(`http://localhost:8000/api/listings/?page=${page}`)
-        console.log(`http://localhost:8000/api/listings/?page=${page}`)
         .then(res => {
             setListings(res.data.results);
             setPrevious(res.data.previous);
