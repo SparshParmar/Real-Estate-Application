@@ -9,12 +9,11 @@ class ListingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Listing
-        fields = ('title', 'price', 'sale_type', 'property', 'slug')
+        fields = ('title', 'price', 'sale_type', 'property', 'slug', 'agency')
 
 
 class listingDetailSerializer(serializers.ModelSerializer):
     property = PropertySerializer(read_only=True)
-    agency = AgencySerializer(read_only=True)
 
     class Meta:
         model = Listing

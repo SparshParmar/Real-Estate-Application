@@ -5,10 +5,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from listings.views import ListingCreate
+from properties.views import PropertyCreate
+
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/create_property', ListingCreate.as_view()),
+    path('api/create_listing', PropertyCreate.as_view()),
     path('api/accounts/', include('accounts.urls')),
     path('api/agencies/', include('agencies.urls')),
     path('api/listings/', include('listings.urls')),

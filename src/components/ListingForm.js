@@ -35,6 +35,7 @@ const ListingForm = (props) => {
 
         setLoading(true);
         console.log({ sale_type, price, bedrooms, home_type, bathrooms, sqmt, days_listed, has_photos, open_house, keywords, props })
+
         axios.post(`http://localhost:8000/api/listings/search`, { sale_type, price, bedrooms, home_type, bathrooms, sqmt, days_listed, has_photos, open_house, keywords}, config)
         .then(res => {
             setLoading(false);
@@ -60,8 +61,9 @@ const ListingForm = (props) => {
                         </select>
                     </div>
                     <div className='listingform__section'>
-                        <label className='listingform__label' htmlFor='sqft'>Sqft</label>
-                        <select className='listingform__select' name='sqft' onChange={e => onChange(e)} value={sqmt}>
+                        <label className='listingform__label' htmlFor='sqmt'>Sqmt</label>
+                        <select className='listingform__select' name="sqmt" onChange={e => onChange(e)} value={sqmt}>
+
                             <option>1000+</option>
                             <option>1200+</option>
                             <option>1500+</option>
