@@ -6,7 +6,7 @@ class PropertySerializer(serializers.ModelSerializer):
     class Meta:
         model = Property
         fields = ('title', 'address', 'city', 'zipcode', 'bedrooms', 'bathrooms', 'home_type', 'photo_main',
-                  'sqmt', 'slug')
+                  'sqmt', 'slug', 'owner')
 
 
 class PropertyDetailSerializer(serializers.ModelSerializer):

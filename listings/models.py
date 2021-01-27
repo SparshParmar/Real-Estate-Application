@@ -11,6 +11,7 @@ class Listing(models.Model):
 
     agency = models.ForeignKey(Agency, on_delete=models.DO_NOTHING)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
+        
     slug = models.CharField(max_length=200, unique=True)
     title = models.CharField(max_length=150)
     description = models.TextField(blank=True)
