@@ -95,7 +95,6 @@ const CreateListing = (props) => {
         _bathrooms,
         _bedrooms,
         _city,
-        _owner,
         _home_type,
         _photo_1,
         _slug,

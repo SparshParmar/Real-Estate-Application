@@ -14,7 +14,6 @@ const Listings = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        console.log(`http://localhost:8000/api/listings/?page=1`)
 
         const fetchData = async () => {
             try {

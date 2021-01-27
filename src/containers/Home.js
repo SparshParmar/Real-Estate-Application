@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { Fragment } from 'react';
+import axios from 'axios';
+
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import userImage from '../assets/images/download.png';
@@ -12,7 +14,9 @@ const Home = ({isAuthenticated, username}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [listingsPerPage, setListingsPerPage] = useState(3);
     const [active, setActive] = useState(1);
-
+    const [count, setCount] = useState(0);
+    const [previous, setPrevious] = useState('');
+    const [next, setNext] = useState('');
     const indexOfLastListing = currentPage * listingsPerPage;
     const indexOfFirstListing = indexOfLastListing - listingsPerPage;
     const currentListings = listings.slice(indexOfFirstListing, indexOfLastListing);
@@ -35,6 +39,26 @@ const Home = ({isAuthenticated, username}) => {
             setActive(currentPage+1);
         }
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8000/api/listings/`);
+                console.log(res.data)
+                setListings(res.data.results);
+                setCount(res.data.count);
+                setPrevious(res.data.previous);
+                setNext(res.data.next);
+            }
+            catch (err) {
+
+            }
+        }
+
+        fetchData();
+    }, []);
 
     return (
         <main className='home'>
