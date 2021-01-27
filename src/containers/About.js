@@ -131,16 +131,16 @@ const About = () => {
                             So, relax, set your preferences and let our software does the work for you
                         </p>
                     </div>
-                    <div className='col-1-of-4'>
+                    {/* <div className='col-1-of-4'>
                         {getTopSeller()}
-                    </div>
+                    </div> */}
                 </div>
             </section>
             <section className='about__team'>
                 <div className='row'>
                     <h2 className='about__subheading'>Cheers!</h2>
                 </div>
-                {getAllRealtors()}
+                {/* {getAllRealtors()} */}
             </section>
         </main>
     );

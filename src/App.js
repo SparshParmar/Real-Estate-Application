@@ -17,6 +17,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import './sass/main.scss';
+import Create from './containers/Create';
 
 const App = () => (
     <Provider store={store}>
@@ -28,6 +29,7 @@ const App = () => (
                     <Route exact path='/contact' component={Contact} />
                     <Route exact path='/listings' component={Listings} />
                     <Route exact path='/filter' component={Filter} />
+                    <Route exact path='/create' component={Create} />
 
                     <PrivateRoute exact path='/listings/:id' component={ListingDetail} />
                     <Route exact path='/login' component={Login} />

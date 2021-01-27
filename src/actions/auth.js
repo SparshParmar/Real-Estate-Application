@@ -16,13 +16,12 @@ export const login = (email, password) => async dispatch => {
     };
 
     const body = JSON.stringify({ email, password });
-    console.log(body)
 
 
 
     try {
         const res = await axios.post(`http://localhost:8000/api/token/`, body, config);
-        
+        res.data.username = email;
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data
@@ -46,10 +45,10 @@ export const signup = ({ name, email, password, password2 }) => async dispatch =
     }
 
     const body = JSON.stringify({ name, email, password, password2 }); 
-    console.log(body)
-    console.log(config)
+  
     try {
         const res = await axios.post(`http://localhost:8000/api/accounts/signup`, body, config);
+        res.data.username = name;
 
         dispatch({
             type: SIGNUP_SUCCESS,

@@ -9,7 +9,8 @@ import {
 const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
-    loading: false
+    loading: false,
+    username: "unauthorised"
 };
 
 export default function(state = initialState, action) {
@@ -22,13 +23,15 @@ export default function(state = initialState, action) {
                 ...state,
                 isAuthenticated: true,
                 loading: false,
-                token: payload.access
+                token: payload.access,
+                username: payload.username
             }
         case SIGNUP_SUCCESS:
             return {
                 ...state,
                 isAuthenticated: false,
-                loading: true
+                loading: true,
+                username: payload.username
             }
         case SIGNUP_FAIL:
         case LOGIN_FAIL:
@@ -38,7 +41,8 @@ export default function(state = initialState, action) {
                 ...state,
                 token: null,
                 isAuthenticated: false,
-                loading: false
+                loading: false,
+                username: "unauthorised"
             }
         default:
             return state

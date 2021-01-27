@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet';
 
 
 
-const Home = ({isAuthenticated}) => {
+const Home = ({isAuthenticated, username}) => {
     const [listings, setListings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [listingsPerPage, setListingsPerPage] = useState(3);
@@ -52,17 +52,23 @@ const Home = ({isAuthenticated}) => {
         </div>
 
         <div className="section_two">
-          <h2>User Profile</h2>          
+          <h3>Dashboard</h3>          
         {
             (isAuthenticated)? (
                 <div>
-                <div>Authenticated</div>
+                <hr></hr>
+                <br></br>
                 <img src={userImage} class="navbar__user_image" alt="User"/>
+                <h6>Logged in</h6>
+                <br></br>
+                <hr></hr>
+                <p>Username: {username}</p>
                 </div>
             )
             :
             (
-            <div>
+            <div class="home__bottom__links">
+            <hr></hr>
             <Link className='navbar__top__auth__link' to='/login'>Login</Link>
             <Link className='navbar__top__auth__link' to='/signup'>Sign Up</Link>
             </div>
@@ -78,7 +84,8 @@ const Home = ({isAuthenticated}) => {
 
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    username: state.auth.username
 });
 
 
