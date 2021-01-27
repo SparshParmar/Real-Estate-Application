@@ -19,6 +19,7 @@ class ListingView(RetrieveAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = listingDetailSerializer
     lookup_field = 'slug'
+    permission_classes = (permissions.AllowAny, )
 
 
 class SearchView(APIView):

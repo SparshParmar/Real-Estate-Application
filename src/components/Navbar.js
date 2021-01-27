@@ -36,6 +36,12 @@ const navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
                         <NavLink className='navbar__bottom__item__link' exact to='/listings'>Listings</NavLink>
                     </li>
                     <li className='navbar__bottom__item'>
+                        <NavLink className='navbar__bottom__item__link' exact to='/Filter'>Search</NavLink>
+                    </li>
+                    <li className='navbar__bottom__item'>
+                        <NavLink className='navbar__bottom__item__link' exact to='/Create'>Create</NavLink>
+                    </li>
+                    <li className='navbar__bottom__item'>
                         <NavLink className='navbar__bottom__item__link' exact to='/about'>About</NavLink>
                     </li>
                     <li className='navbar__bottom__item'>

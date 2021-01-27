@@ -16,7 +16,7 @@ const About = () => {
 
         const getTopSeller = async () => {
             try {
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/realtors/topseller`, config);
+                const res = await axios.get(`http://localhost:8000/api/realtors/topseller`, config);
                 setTopSeller(res.data);
             }
             catch (err) {
@@ -36,7 +36,7 @@ const About = () => {
 
         const getRealtors = async () => {
             try {
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/realtors/`, config);
+                const res = await axios.get(`http://localhost:8000/api/realtors/`, config);
                 setRealtors(res.data);
             }
             catch (err) {
@@ -131,16 +131,16 @@ const About = () => {
                             So, relax, set your preferences and let our software does the work for you
                         </p>
                     </div>
-                    <div className='col-1-of-4'>
+                    {/* <div className='col-1-of-4'>
                         {getTopSeller()}
-                    </div>
+                    </div> */}
                 </div>
             </section>
             <section className='about__team'>
                 <div className='row'>
                     <h2 className='about__subheading'>Cheers!</h2>
                 </div>
-                {getAllRealtors()}
+                {/* {getAllRealtors()} */}
             </section>
         </main>
     );

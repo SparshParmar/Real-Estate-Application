@@ -17,9 +17,11 @@ export const login = (email, password) => async dispatch => {
 
     const body = JSON.stringify({ email, password });
 
-    try {
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/token/`, body, config);
 
+
+    try {
+        const res = await axios.post(`http://localhost:8000/api/token/`, body, config);
+        res.data.username = email;
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data
@@ -31,7 +33,7 @@ export const login = (email, password) => async dispatch => {
             type: LOGIN_FAIL    
         });
 
-        dispatch(setAlert('Error Authenticating', 'error'));
+        dispatch(setAlert('Error Authenticating while posting', 'error'));
     }
 };
 
@@ -43,9 +45,10 @@ export const signup = ({ name, email, password, password2 }) => async dispatch =
     }
 
     const body = JSON.stringify({ name, email, password, password2 }); 
-
+  
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/accounts/signup`, body, config);
+        const res = await axios.post(`http://localhost:8000/api/accounts/signup`, body, config);
+        res.data.username = name;
 
         dispatch({
             type: SIGNUP_SUCCESS,

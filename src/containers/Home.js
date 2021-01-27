@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { Fragment } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import userImage from '../assets/images/download.png';
 import { Helmet } from 'react-helmet';
-import ListingForm from '../components/ListingForm';
-import Listings from '../components/Listings';
-import Pagination from '../components/Pagination';
 
-const Home = () => {
+
+
+const Home = ({isAuthenticated, username}) => {
     const [listings, setListings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [listingsPerPage, setListingsPerPage] = useState(3);
@@ -42,31 +45,48 @@ const Home = () => {
                     content='Realest Estate Home Page'
                 />
             </Helmet>
-            <section className='home__form'>
-                <ListingForm setListings={setListings} />
-            </section>
-            <section className='home__listings'>
-                <Listings listings={currentListings} />
-            </section>
-            <section className='home__pagination'>
-                <div className='row'>
-                    {
-                        listings.length !== 0 ? (
-                            <Pagination
-                                itemsPerPage={listingsPerPage}
-                                count={listings.length}
-                                visitPage={visitPage}
-                                previous={previous_number}
-                                next={next_number}
-                                active={active}
-                                setActive={setActive}
-                            />
-                        ) : null
-                    }
+        
+        <div className='grid_container'>
+        <div className="section_one">
+          "hey here are the listings..."
+        </div>
+
+        <div className="section_two">
+          <h3>Dashboard</h3>          
+        {
+            (isAuthenticated)? (
+                <div>
+                <hr></hr>
+                <br></br>
+                <img src={userImage} class="navbar__user_image" alt="User"/>
+                <h6>Logged in</h6>
+                <br></br>
+                <hr></hr>
+                <p>Username: {username}</p>
                 </div>
-            </section>
+            )
+            :
+            (
+            <div class="home__bottom__links">
+            <hr></hr>
+            <Link className='navbar__top__auth__link' to='/login'>Login</Link>
+            <Link className='navbar__top__auth__link' to='/signup'>Sign Up</Link>
+            </div>
+            )
+        }
+          
+        </div>
+        </div>
+      
         </main>
     );
 };
 
-export default Home;
+
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    username: state.auth.username
+});
+
+
+export default connect(mapStateToProps)(Home);

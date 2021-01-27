@@ -18,6 +18,7 @@ const ListingForm = (props) => {
     });
 
     const { sale_type, price, bedrooms, home_type, bathrooms, sqft, days_listed, has_photos, open_house, keywords } = formData;
+    
 
     const [loading, setLoading] = useState(false);
 
@@ -33,7 +34,8 @@ const ListingForm = (props) => {
         };
 
         setLoading(true);
-        axios.post(`${process.env.REACT_APP_API_URL}/api/listings/search`, { sale_type, price, bedrooms, home_type, bathrooms, sqft, days_listed, has_photos, open_house, keywords }, config)
+        console.log({ sale_type, price, bedrooms, home_type, bathrooms, sqft, days_listed, has_photos, open_house, keywords, props })
+        axios.post(`http://localhost:8000/api/listings/search`, { sale_type, price, open_house }, config)
         .then(res => {
             setLoading(false);
             props.setListings(res.data);
@@ -41,6 +43,7 @@ const ListingForm = (props) => {
         })
         .catch(err => {
             setLoading(false);
+            console.log("errorcaught")
             window.scrollTo(0, 0);
         })
     };
