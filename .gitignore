@@ -138,3 +138,4 @@ thumb
 sketch
 
 # End of https://www.gitignore.io/api/react,django
+accounts/migrations/0001_initial.py

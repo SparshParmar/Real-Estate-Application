@@ -124,13 +124,13 @@ const CreateListing = (props) => {
     title,
     price,   
     open_house,
-    bedrooms,
-    bathrooms,
     slug,
     is_published,
     list_date,
     photo_main,
     description,
+    _slug,
+    _title
         },
         config
       )
