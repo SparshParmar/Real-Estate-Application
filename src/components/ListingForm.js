@@ -10,14 +10,14 @@ const ListingForm = (props) => {
         bedrooms: '0+',
         home_type: 'House',
         bathrooms: '0+',
-        sqft: '1000+',
+        sqmt: '1000+',
         days_listed: '1 or less',
         has_photos: '1+',
         open_house: 'false',
         keywords: ''
     });
 
-    const { sale_type, price, bedrooms, home_type, bathrooms, sqft, days_listed, has_photos, open_house, keywords } = formData;
+    const { sale_type, price, bedrooms, home_type, bathrooms, sqmt, days_listed, has_photos, open_house, keywords } = formData;
     
 
     const [loading, setLoading] = useState(false);
@@ -34,8 +34,8 @@ const ListingForm = (props) => {
         };
 
         setLoading(true);
-        console.log({ sale_type, price, bedrooms, home_type, bathrooms, sqft, days_listed, has_photos, open_house, keywords, props })
-        axios.post(`http://localhost:8000/api/listings/search`, { sale_type, price, open_house }, config)
+        console.log({ sale_type, price, bedrooms, home_type, bathrooms, sqmt, days_listed, has_photos, open_house, keywords, props })
+        axios.post(`http://localhost:8000/api/listings/search`, { sale_type, price, bedrooms, home_type, bathrooms, sqmt, days_listed, has_photos, open_house, keywords}, config)
         .then(res => {
             setLoading(false);
             props.setListings(res.data);
@@ -61,7 +61,7 @@ const ListingForm = (props) => {
                     </div>
                     <div className='listingform__section'>
                         <label className='listingform__label' htmlFor='sqft'>Sqft</label>
-                        <select className='listingform__select' name='sqft' onChange={e => onChange(e)} value={sqft}>
+                        <select className='listingform__select' name='sqft' onChange={e => onChange(e)} value={sqmt}>
                             <option>1000+</option>
                             <option>1200+</option>
                             <option>1500+</option>

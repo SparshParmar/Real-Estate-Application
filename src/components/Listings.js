@@ -19,16 +19,17 @@ const listings = ({ listings }) => {
                     home_type={listing["property"].home_type}
                     bedrooms={listing["property"].bedrooms}
                     bathrooms={listing["property"].bathrooms}
-                    sqft={listing["property"].sqmt}
-                    photo_main={listing["property"].photo_main}
+                    sqmt={listing["property"].sqmt}
+                    photo_main={"http://localhost:8000"+listing["property"].photo_main}
                     slug={listing.slug}
+                    listing_slug={listing.slug}
                 />
             );
         })
 
         for (let i = 0; i < listings.length; i += 3) {
             result.push(
-                <div className='row'>
+                <div className='row' key='i'>
                     <div className='col-1-of-3'>
                         {listingsOnPage[i]}
                     </div>
