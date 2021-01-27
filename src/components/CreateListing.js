@@ -110,17 +110,17 @@ const CreateListing = (props) => {
 
     // console.log(photo_main, slug, title, description, sale_type, price, bedrooms, bathrooms, open_house, is_published, list_date);
 
-    // console.log(_title,
-    //     _address,
-    //     _bathrooms,
-    //     _bedrooms,
-    //     _city,
-    //     _owner,
-    //     _home_type,
-    //     _photo_1,
-    //     _slug,
-    //     _sqmt,
-    //     _zipcode);
+        // console.log(_title,
+        //     _address,
+        //     _bathrooms,
+        //     _bedrooms,
+        //     _city,
+        //     _owner,
+        //     _home_type,
+        //     _photo_1,
+        //     _slug,
+        //     _sqmt,
+        //     _zipcode);
   };
 
   const handleFile = (e) =>
