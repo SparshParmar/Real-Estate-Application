@@ -14,7 +14,6 @@ class ListingSerializer(serializers.ModelSerializer):
 
 class listingDetailSerializer(serializers.ModelSerializer):
     property = PropertySerializer(read_only=True)
-    agency = AgencySerializer(read_only=True)
 
     class Meta:
         model = Listing

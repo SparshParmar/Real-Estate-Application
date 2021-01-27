@@ -2,9 +2,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework import permissions
+
+from properties.models import Property
 from .models import Listing
 from .serializers import ListingSerializer, listingDetailSerializer
 from datetime import datetime, timezone, timedelta
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class ListingsView(ListAPIView):
@@ -16,10 +21,42 @@ class ListingsView(ListAPIView):
 
 class ListingView(RetrieveAPIView):
     queryset = Listing.objects.order_by('-list_date').filter(is_published=True)
-    permission_classes = (permissions.IsAuthenticated,)
     serializer_class = listingDetailSerializer
     lookup_field = 'slug'
     permission_classes = (permissions.AllowAny, )
+
+
+class ListingCreate(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, format=None):
+        data = self.request.data
+
+        title = data['title']
+        sale_type = data['sale_type']
+        user_email = data['agency']
+        description = data['description']
+        price = data['price']
+        open_house = data['open_house']
+        photo_1 = data['photo_main']
+        is_published = data['is_published']
+        list_date = data['list_date']
+        slug = data['slug']
+        prop_slug = data['_slug']
+        prop_title = data['_title']
+
+        try:
+            prop = Property.objects.filter(title__iexact=prop_title, slug__iexact=prop_slug)
+
+            agency_user = User.objects.filter(email=user_email)
+            # fetch the selected property
+            listing = Listing(title=title, property=prop, sale_type=sale_type, price=int(price), slug=slug,
+                              open_house=open_house, agency=agency_user, list_date=list_date, is_published=is_published,
+                              photo_1=photo_1, description=description)
+
+            listing.save()
+        except:
+            return Response({'error': 'Error creating Listing'})
 
 
 class SearchView(APIView):
@@ -145,40 +182,6 @@ class SearchView(APIView):
             if query.photo_2:
                 count += 1
             if query.photo_3:
-                count += 1
-            if query.photo_4:
-                count += 1
-            if query.photo_5:
-                count += 1
-            if query.photo_6:
-                count += 1
-            if query.photo_7:
-                count += 1
-            if query.photo_8:
-                count += 1
-            if query.photo_9:
-                count += 1
-            if query.photo_10:
-                count += 1
-            if query.photo_11:
-                count += 1
-            if query.photo_12:
-                count += 1
-            if query.photo_13:
-                count += 1
-            if query.photo_14:
-                count += 1
-            if query.photo_15:
-                count += 1
-            if query.photo_16:
-                count += 1
-            if query.photo_17:
-                count += 1
-            if query.photo_18:
-                count += 1
-            if query.photo_19:
-                count += 1
-            if query.photo_20:
                 count += 1
 
             if count < has_photos:

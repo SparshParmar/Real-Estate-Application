@@ -13,10 +13,8 @@ const CreateListing = (props) => {
     is_published: 'false',
     photo_main: image_main,
     slug: 'listing slug',
-    title: 'the lsiting title',
+    title: 'the listing title',
     description: 'the description',
-    bathrooms: 1,
-    bedrooms:1
   });
 
   const [propertyData, setPropertyData] = useState({
@@ -89,7 +87,7 @@ const CreateListing = (props) => {
     axios
       .post(
         `http://localhost:8000/api/create_property`,
-        {_owner,
+        {
           _title,
         _address,
         _bathrooms,
@@ -117,6 +115,7 @@ const CreateListing = (props) => {
       axios
       .post(
         `http://localhost:8000/api/create_listing`,
+
         {
           agency,
           sale_type,
@@ -259,16 +258,6 @@ const CreateListing = (props) => {
         </div>
 
         <div className="col-1-of-6">
-          <div className="listingform__section">
-            <label className="listingform__label" htmlFor="bedrooms">
-              Bedrooms
-            </label>
-            <input
-              className="listingform__select"
-              name="bedrooms"
-              onChange={(e) => onChange(e)}
-            ></input>
-          </div>
           <div className="listingform__label">
             <label className="listingform__label" htmlFor="photo_main">Upload: 
             </label>
@@ -282,22 +271,6 @@ const CreateListing = (props) => {
         </div>
 
         <div className="col-1-of-6">
-          <div className="listingform__section">
-            <label className="listingform__label" htmlFor="home_type">
-              Home Type
-            </label>
-            <select
-              className="listingform__select"
-              name="_home_type"
-              onChange={(e) => onChange(e)}
-              value={_home_type}
-            >
-              <option>House</option>
-              <option>Condo</option>
-              <option>Townhouse</option>
-            </select>
-          </div>
-
           <div className="listingform__section">
             <label className="listingform__label" htmlFor="description">
               Description
@@ -313,23 +286,6 @@ const CreateListing = (props) => {
         </div>
 
         <div className="col-1-of-6">
-          <div className="listingform__section">
-            <label className="listingform__label" htmlFor="bathrooms">
-              Baths
-            </label>
-            <select
-              className="listingform__select"
-              name="bathrooms"
-              onChange={(e) => onChange(e)}
-              value={bathrooms}
-            >
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>
-          </div>
           <div className="listingform__altsection">
             <label className="listingform__label" htmlFor="open_house">
               Open House
