@@ -49,7 +49,7 @@ const Listings = () => {
                     home_type={listing["property"].home_type}
                     bedrooms={listing["property"].bedrooms}
                     bathrooms={listing["property"].bathrooms}
-                    sqft={listing["property"].sqmt}
+                    sqmt={listing["property"].sqmt}
                     photo_main={listing["property"].photo_main}
                     slug={listing["property"].slug}
                     listing_slug={listing.slug}

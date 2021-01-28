@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const card = (props) => {
+    // console.log(props);
     const numberWithCommas = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     };
@@ -16,7 +17,7 @@ const card = (props) => {
             <p className='card__location'>{props.address},{props.city}</p>
             <div className='row'>
                 <div className='col-2-of-3'>
-                    <p className='card__info'>Price: ${numberWithCommas(props.price)}</p>
+                    <p className='card__info'>Price: ${(props.price)}</p>
                     <p className='card__info'>Bedrooms: {props.bedrooms}</p>
                     <p className='card__info'>Bathrooms: {props.bathrooms}</p>
                 </div>
