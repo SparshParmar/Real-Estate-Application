@@ -14,7 +14,7 @@ const Create = ({isAuthenticated, username , token}) => {
 
     const indexOfLastListing = currentPage * listingsPerPage;
     const indexOfFirstListing = indexOfLastListing - listingsPerPage;
-    const currentListings = listings.slice(indexOfFirstListing, indexOfLastListing);
+    
 
     const visitPage = (page) => {
         setCurrentPage(page);
@@ -50,7 +50,7 @@ const Create = ({isAuthenticated, username , token}) => {
                     <CreateListing setListings={setListings} username={username} token={token} />
                 </section>
                 <section className='home__listings'>
-                    <Listings listings={currentListings} />
+                    <Listings listings={listings} /> 
                 </section>
                 <section className='home__pagination'>
                     <div className='row'>

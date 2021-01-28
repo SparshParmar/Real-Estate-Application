@@ -48,14 +48,14 @@ class PropertyCreate(APIView):
         slug = data['_slug']
 
         try:
-            owner_user = User.objects.get(email=user_email)
+            owner_user = [User.objects.get(email=user_email)]
 
-            prop = Property(title=title, owner=str(owner_user), photo_main=photo_main, address=address,
+            prop = Property(title=title, owner=owner_user.id  , photo_main=photo_main, address=address,
                             city=city, zipcode=zipcode, home_type=home_type, bedrooms=bedrooms, bathrooms=bathrooms,
                             sqmt=sqmt, slug=slug)
 
             prop.save()
 
             return Response({'success': 'Property created successfully'})
-        except:
-            return Response({'error': 'Property creation failed'})
+        except Exception as e:
+            return Response({'error': e})
