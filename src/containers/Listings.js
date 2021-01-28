@@ -18,7 +18,7 @@ const Listings = () => {
         const fetchData = async () => {
             try {
                 const res = await axios.get(`http://localhost:8000/api/listings/?page=1`);
-                console.log('the res' + res)
+                // console.log('the res' + res)
                 setListings(res.data.results);
                 setCount(res.data.count);
                 setPrevious(res.data.previous);

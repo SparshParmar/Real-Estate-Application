@@ -67,14 +67,13 @@
       setListingData({ ...listingData, [e.target.name]: e.target.value });
 
       const _onchange = (e) =>
-      setListingData({ ...propertyData, [e.target.name] : e.target.value });
+      setPropertyData({ ...propertyData, [e.target.name] : e.target.value });
 
     const onSubmit = (e) => {
       e.preventDefault();
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
           'Authorization' : `Bearer ${localStorage.getItem('token')}`
         },
       };
@@ -105,7 +104,8 @@
         )
         .then((res) => {
           setLoading(false);
-          props.setListings(res.data);
+          console.log(res)
+          // props.setListings(res.data);
           window.scrollTo(0, 0);
 
           axios
@@ -130,12 +130,13 @@
         )
         .then((res) => {
           setLoading(false);
-          props.setListings(res.data);
+          // props.setListings(res.data);
+          console.log(res)
           window.scrollTo(0, 0);
         })
         .catch((err) => {
           setLoading(false);
-          console.log('errorcaught');
+          console.log(err);
           window.scrollTo(0, 0);
         });
 
@@ -143,7 +144,7 @@
         })
         .catch((err) => {
           setLoading(false);
-          console.log('errorcaught');
+          console.log(err);
           window.scrollTo(0, 0);
         });
 
@@ -195,7 +196,8 @@
       });
 
     return (
-      <form className="listingform" onSubmit={(e) => onSubmit(e)}>
+      <form enctype='multipart/form-data'
+       className="listingform" onSubmit={(e) => onSubmit(e)}>
         ]
         <div className="row">
           <h1>Listing</h1>
@@ -336,8 +338,14 @@
             </div>
 
             <div className="listingform__label">
-              Upload Image :
-              <input type="file" _onchange={e => handleFile(e)} />
+              <label className="listingform__label" htmlFor="_photo_1">Upload: 
+              </label>
+              <input
+              type='file'
+                className="listingform__select"
+                name="_photo_1"
+                onChange={(e) => _onchange(e)}
+              ></input>
             </div>
           </div>
           <div className="col-1-of-6">

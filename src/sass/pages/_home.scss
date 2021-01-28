@@ -30,6 +30,8 @@
 
   .section_one {
     grid-area: left;
+    padding: 10px;
+    height: 100%;
   }
   .section_two {
     grid-area: right;
@@ -37,5 +39,11 @@
     flex-direction: column;
     justify-content: space-between;
   }
-  
+  .card___classname {
+    width: 30px;
+  }
+}
+
+.card___classname {
+  width: 30px;
 }

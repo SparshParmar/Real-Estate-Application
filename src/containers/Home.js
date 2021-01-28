@@ -4,53 +4,56 @@ import axios from 'axios';
 
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import userImage from '../assets/images/download.png';
+import userImage from '../assets/images/userImage.png';
 import { Helmet } from 'react-helmet';
 import Card from '../components/Card'
 
 
 const Home = ({isAuthenticated, username}) => {
-    const [listings, setListings] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [listingsPerPage, setListingsPerPage] = useState(3);
-    const [active, setActive] = useState(1);
-    const [count, setCount] = useState(0);
-    const [previous, setPrevious] = useState('');
-    const [next, setNext] = useState('');
-    const [flag, setFlag] = useState(0);
-    const indexOfLastListing = currentPage * listingsPerPage;
-    const indexOfFirstListing = indexOfLastListing - listingsPerPage;
-    const currentListings = listings.slice(indexOfFirstListing, indexOfLastListing);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [listingsPerPage, setListingsPerPage] = useState(10);
+    // const [active, setActive] = useState(1);
+    // const [count, setCount] = useState(0);
+    // const [previous, setPrevious] = useState('');
+    // const [next, setNext] = useState('');
+    // const [flag, setFlag] = useState(0);
+    // const indexOfLastListing = currentPage * listingsPerPage;
+    // const indexOfFirstListing = indexOfLastListing - listingsPerPage;
+    const [listings_, setListings] = useState([]);
 
-    const visitPage = (page) => {
-        setCurrentPage(page);
-        setActive(page);
-    };
+    // const visitPage = (page) => {
+    //     setCurrentPage(page);
+    //     setActive(page);
+    // };
     var f_ag = 0;
 
-    const previous_number = () => {
-        if (currentPage !== 1) {
-            setCurrentPage(currentPage-1);
-            setActive(currentPage-1);
-        }
-    };
+    // const previous_number = () => {
+    //     if (currentPage !== 1) {
+    //         setCurrentPage(currentPage-1);
+    //         setActive(currentPage-1);
+    //     }
+    // };
 
-    const next_number = () => {
-        if (currentPage !== Math.ceil(listings.length/3)) {
-            setCurrentPage(currentPage+1);
-            setActive(currentPage+1);
-        }
-    };
+    // const next_number = () => {
+    //     if (currentPage !== Math.ceil(listings_.length/3)) {
+    //         setCurrentPage(currentPage+1);
+    //         setActive(currentPage+1);
+    //     }
+    // };
+
+     
 
     useEffect(() => {
+        window.scrollTo(0, 0);
 
         const fetchData = async () => {
             try {
                 const res = await axios.get(`http://localhost:8000/api/listings/`);
+                
                 setListings(res.data.results);
-                setCount(res.data.count);
-                setPrevious(res.data.previous);
-                setNext(res.data.next);
+                console.log("rendered");
+                // console.log(listings_.agency);
+            
             }
             catch (err) {
 
@@ -58,12 +61,23 @@ const Home = ({isAuthenticated, username}) => {
         }
 
         fetchData();
+    }, []);
+    
 
+
+    // axios.get(`http://localhost:8000/api/listings/`).
+    // then((res)=>{
+    //      listings_ = (res.data.results);
         
+    // }).catch((err)=>{
+    //     console.log(err);
+    // })
+                
+            
 
+        // fetchData();
 
-    }, [listings]);
-
+    console.log(listings_);
     return (
         <main className='home'>
             <Helmet>
@@ -76,11 +90,15 @@ const Home = ({isAuthenticated, username}) => {
         
         <div className='grid_container'>
         <div className="section_one">
+        <p>Your Listings</p>
+
           {
+                
+          
               isAuthenticated? (
-              listings.map(e=> e.agency===username ?    
-                <div>
-                    <p>Your Listings</p>
+
+              listings_.map(e=> e.agency===username ?  
+                <div key={e}>
                 <Card className="card___classname"
                 title={e.title}   
                 address={e["property"].address}
@@ -94,11 +112,11 @@ const Home = ({isAuthenticated, username}) => {
                 photo_main={e["property"].photo_main}
                 slug={e["property"].slug}
                 listing_slug={e.slug}/>
-                {f_ag = 1}
+                {f_ag = '.'}
                  </div>  :
-                 <p></p>))
+                 <p key={e.slug}></p>))
               :
-              (<p>Please login to continue</p>)
+              (<p className="home__bottom">Please login to continue</p>)
           }
            <p>
               {f_ag === 0 && isAuthenticated ? "No listings found" : ""}
@@ -113,7 +131,7 @@ const Home = ({isAuthenticated, username}) => {
                 <div>
                 <hr></hr>
                 <br></br>
-                <img src={userImage} class="navbar__user_image" alt="User"/>
+                <img src={userImage} className="navbar__user_image" alt="User"/>
                 <h6>Logged in</h6>
                 <br></br>
                 <hr></hr>
@@ -122,7 +140,7 @@ const Home = ({isAuthenticated, username}) => {
             )
             :
             (
-            <div class="home__bottom__links">
+            <div className="home__bottom__links">
             <hr></hr>
             <Link className='navbar__top__auth__link' to='/login'>Login</Link>
             <Link className='navbar__top__auth__link' to='/signup'>Sign Up</Link>
@@ -140,7 +158,8 @@ const Home = ({isAuthenticated, username}) => {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    username: state.auth.username
+    username: state.auth.username,
+    
 });
 
 

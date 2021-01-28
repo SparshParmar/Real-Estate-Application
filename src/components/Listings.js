@@ -5,9 +5,9 @@ const listings = ({ listings }) => {
     const getListings = () => {
         let listingsOnPage = [];
         let result = [];
-        console.log("listings")
+        // console.log("listings")
 
-        console.log(listings)
+        
         listings.map(listing => {
             return listingsOnPage.push(
                 <Card

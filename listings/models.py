@@ -13,9 +13,9 @@ class Listing(models.Model):
     agency = models.CharField(max_length=100)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
         
-    slug = models.CharField(max_length=200, unique=True)
+    slug = models.CharField(max_length=200)
     title = models.CharField(max_length=150)
-    description = models.TextField(blank=True)
+    description = models.CharField(max_length=200)
     sale_type = models.CharField(max_length=50, choices=SaleType.choices, default=SaleType.FOR_SALE)
     price = models.IntegerField()
     open_house = models.BooleanField(default=False)

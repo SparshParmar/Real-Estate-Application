@@ -10,10 +10,10 @@ const ListingForm = (props) => {
         bedrooms: '0+',
         home_type: 'House',
         bathrooms: '0+',
-        sqmt: '1000+',
-        days_listed: '1 or less',
+        sqmt: 'Any',
+        days_listed: 'Any',
         has_photos: '1+',
-        open_house: 'false',
+        open_house: 'True',
         keywords: ''
     });
 
@@ -34,17 +34,19 @@ const ListingForm = (props) => {
         };
 
         setLoading(true);
+
         console.log({ sale_type, price, bedrooms, home_type, bathrooms, sqmt, days_listed, has_photos, open_house, keywords, props })
 
         axios.post(`http://localhost:8000/api/listings/search`, { sale_type, price, bedrooms, home_type, bathrooms, sqmt, days_listed, has_photos, open_house, keywords}, config)
         .then(res => {
             setLoading(false);
+            console.log(res.data);
             props.setListings(res.data);
             window.scrollTo(0, 0);
         })
         .catch(err => {
             setLoading(false);
-            console.log("errorcaught")
+            console.log(err);
             window.scrollTo(0, 0);
         })
     };

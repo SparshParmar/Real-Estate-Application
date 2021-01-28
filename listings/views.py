@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework import permissions
+from django.utils import timezone
 
 from properties.models import Property
 from .models import Listing
@@ -38,7 +39,7 @@ class ListingCreate(APIView):
         description = data['description']
         price = data['price']
         open_house = data['open_house']
-        photo_1 = data['photo_main']
+        photo_1 = Property.objects.get(slug='TheAdminPropSlug').photo_main
         is_published = data['is_published']
         list_date = data['list_date']
         slug = data['slug']
@@ -46,17 +47,37 @@ class ListingCreate(APIView):
         prop_title = data['_title']
 
         try:
-            prop = Property.objects.filter(title__iexact=prop_title, slug__iexact=prop_slug)
+            print(".............")
+            print(user_email)
+            
+            prop = Property.objects.get(title__iexact=prop_title)
 
-            agency_user = User.objects.filter(email=user_email)
-            # fetch the selected property
-            listing = Listing(title=title, property=prop, sale_type=sale_type, price=int(price), slug=slug,
-                              open_house=open_house, agency=agency_user, list_date=list_date, is_published=is_published,
-                              photo_1=photo_1, description=description)
+            # print(type(prop))
+            # print(type(Listing.objects.get(slug='Thehousekdafdkfj').property))
+            # # fetch the selected property
 
-            listing.save()
-        except:
-            return Response({'error': 'Error creating Listing'})
+
+            # print(type(Listing.objects.get(slug='Thehousekdafdkfj').price)) 
+
+
+            listing = Listing(
+                title=title, 
+                property=prop, 
+                sale_type=sale_type, 
+                price=1000, 
+                slug=slug,
+                open_house=True, 
+                agency=user_email, 
+                list_date=Listing.objects.get(title='TheAdminListingTitle').list_date, 
+                is_published=True,
+                photo_1=photo_1, 
+                description=description)
+
+            listing.save(force_insert=True)
+            return Response({'success': "Success"})
+            
+        except Exception as e:
+            return Response({'error': e})
 
 
 class SearchView(APIView):
@@ -192,7 +213,7 @@ class SearchView(APIView):
         queryset = queryset.filter(open_house__iexact=open_house)
 
         keywords = data['keywords']
-        queryset = queryset.filter(description__icontains=keywords)
+        # queryset = queryset.filter(description__icontains=keywords)
 
         serializer = ListingSerializer(queryset, many=True)
 
